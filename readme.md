@@ -6,4 +6,4 @@
 
 | 算法名称 | 论文名称 | 代码位置 |
 | --- | --- | --- |
-| Scaffold | SCAFFOLD: Stochastic Controlled Averaging for Federated Learning | [./scaffold/] |
+| Scaffold | SCAFFOLD: Stochastic Controlled Averaging for Federated Learning | [scaffold](./scaffold/) |
