@@ -1,0 +1,100 @@
+
+{
+  "wandb": {
+    "enabled": false,
+    "project": "EAFL",
+    "name": "EAFL"
+  },
+  "global": {
+    "mode": "thread",
+    "use_file_system": false,
+    "multi_gpu": true,
+    "experiment": "EAFL/3",
+    "stale": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,10,10,10,10,10],
+    "dataset": {
+      "path": "dataset.FashionMNIST.FashionMNIST",
+      "params": {}
+    },
+    "iid": {
+      "beta": 0.5
+    },
+    "client_num": 30
+  },
+  "server": {
+    "path": "server.SemiAsyncServer.SemiAsyncServer",
+    "epochs": 300,
+    "model": {
+      "path": "model.CNN.CNN",
+      "params": {
+      }
+    },
+    "scheduler": {
+      "path": "eafl.EAFLScheduler.EAFLScheduler",
+      "r": 25,
+      "schedule": {
+        "path": "schedule.RandomSchedule.RandomSchedule",
+        "params": {
+          "c_ratio": 0.7
+        }
+      }
+    },
+    "updater": {
+      "path": "eafl.EAFLUpdater.EAFLUpdater",
+      "loss": "torch.nn.functional.cross_entropy",
+      "update": {
+        "path": "eafl.EAFL.DSA",
+        "params": {
+        }
+      },
+      "group": {
+        "path": "eafl.EAFL.SAA",
+        "params": {
+        }
+      }
+    }
+  },
+  "group_manager": {
+    "path": "groupmanager.NormalGroupManager.NormalGroupManager",
+    "group_method": {
+      "path": "group.CosMatrix.CosMatrix",
+      "params": {
+        "n": 3
+      }
+    }
+  },
+  "queue_manager": {
+    "path": "queuemanager.QueueListManager.QueueListManager",
+    "receiver": {
+      "path": "eafl.EAFLReceiver.EAFLReceiver",
+      "params": {
+      }
+    },
+    "checker": {
+      "path": "checker.AllChecker.AllChecker",
+      "params": {
+      }
+    }
+  },
+  "client_manager": {
+    "path": "clientmanager.NormalClientManager.NormalClientManager"
+  },
+  "client": {
+    "path": "eafl.EAFLClient.EAFLClient",
+    "epochs": 1,
+    "batch_size": 64,
+    "model": {
+      "path": "model.CNN.CNN",
+      "params": {
+      }
+    },
+    "loss": "torch.nn.functional.cross_entropy",
+    "mu": 0,
+    "optimizer": {
+      "path": "torch.optim.SGD",
+      "params": {
+        "lr": 0.01,
+        "weight_decay": 0
+      }
+    }
+  }
+}
