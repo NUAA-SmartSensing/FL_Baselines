@@ -7,3 +7,4 @@
 | 算法名称 | 论文名称 | 代码位置 |
 | --- | --- | --- |
 | SCAFFOLD | SCAFFOLD: Stochastic Controlled Averaging for Federated Learning | [scaffold](./scaffold/) |
+| EAFL | Orchestrating Sustainable and Service-Differentiable Satellite Networking: A Federated Cross-Orbit Approach | [eafl](./eafl/) |
