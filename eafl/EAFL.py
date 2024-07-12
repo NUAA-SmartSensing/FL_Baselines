@@ -2,18 +2,7 @@ import copy
 
 from update.AbstractUpdate import AbstractUpdate
 from utils.GlobalVarGetter import GlobalVarGetter
-import torch
-
-
-def to_cpu(data):
-    if isinstance(data, dict):
-        return {k: to_cpu(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [to_cpu(v) for v in data]
-    elif isinstance(data, torch.Tensor):
-        return data.cpu()
-    else:
-        return data
+from utils.Tools import to_cpu
 
 
 class SAA(AbstractUpdate):
