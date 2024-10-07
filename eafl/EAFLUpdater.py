@@ -1,6 +1,5 @@
-import time
-
 import torch.utils.data
+import wandb
 
 from updater.SyncUpdater import SyncUpdater
 from utils import ModuleFindTool
@@ -52,7 +51,9 @@ class EAFLUpdater(SyncUpdater):
                 self.update_server_weights(epoch, self.group_manager.network_list, total_data_list)
 
             self.server_thread_lock.acquire()
-            self.run_server_test(epoch)
+            acc, loss = self.run_server_test(epoch)
+            if self.config['enabled']:
+                wandb.log({'accuracy': acc, 'loss': loss})
             self.global_var['scheduler'].set_selected_clients(self.selected_list)
             self.server_thread_lock.release()
 

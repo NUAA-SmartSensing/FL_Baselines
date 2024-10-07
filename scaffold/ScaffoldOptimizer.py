@@ -7,7 +7,6 @@ class ScaffoldOptimizer(Optimizer):
         super(ScaffoldOptimizer, self).__init__(params, defaults)
 
     def step(self, server_controls, client_controls, closure=None):
-
         for group in self.param_groups:
             for p, c, ci in zip(group['params'], server_controls.values(), client_controls.values()):
                 if p.grad is None:

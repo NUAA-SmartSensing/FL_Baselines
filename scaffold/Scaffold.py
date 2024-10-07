@@ -22,14 +22,16 @@ class Scaffold(AbstractUpdate):
         updated_parameters = {}
         new_control = {}
         for key in update_list[0]["weights"].keys():
-            updated_parameters[key] = to_dev(torch.zeros_like(update_list[0]["weights"][key]), self.dev)
-            new_control[key] = to_dev(torch.zeros_like(update_list[0]["delta_c"][key]), self.dev)
+            updated_parameters[key] = to_dev(torch.zeros_like(update_list[0]["weights"][key], dtype=torch.float32), self.dev)
+        for key in update_list[0]["delta_c"].keys():
+            new_control[key] = to_dev(torch.zeros_like(update_list[0]["delta_c"][key], dtype=torch.float32), self.dev)
         for update in update_list:
             for key in update["weights"].keys():
                 updated_parameters[key] += update["weights"][key] / client_num
+            for key in update["delta_c"].keys():
                 new_control[key] += update["delta_c"][key] / client_num
-        for key in updated_parameters.keys():
+        for key in new_control.keys():
             self.control[key] += client_num * new_control[key] / self.global_var["global_config"]["client_num"]
+        for key in updated_parameters.keys():
             updated_parameters[key] = self.global_weights[key] + self.lr * updated_parameters[key]
-        # self.global_var["control"] = self.control
         return updated_parameters, None
