@@ -29,7 +29,7 @@
         "params": {}
       },
       "scheduler": {
-        "path": "scaffold.ScaffoldScheduler.ScaffoldScheduler",
+        "path": "lib.scaffold.ScaffoldScheduler.ScaffoldScheduler",
         "schedule": {
           "path": "schedule.RandomSchedule.RandomSchedule",
           "params": {
@@ -41,7 +41,7 @@
         "path": "updater.SyncUpdater.SyncUpdater",
         "loss": "torch.nn.functional.cross_entropy",
         "update": {
-          "path": "scaffold.Scaffold.Scaffold",
+          "path": "lib.scaffold.Scaffold.Scaffold",
           "params": {
             "lr": 1.0
           }
@@ -65,7 +65,7 @@
       "path": "clientmanager.NormalClientManager.NormalClientManager"
     },
     "client": {
-      "path": "scaffold.ScaffoldClient.ScaffoldClient",
+      "path": "lib.scaffold.ScaffoldClient.ScaffoldClient",
       "epochs": 2,
       "batch_size": 64,
       "model": {

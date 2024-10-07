@@ -1,4 +1,3 @@
-
 {
   "wandb": {
     "enabled": false,
@@ -29,7 +28,7 @@
       }
     },
     "scheduler": {
-      "path": "eafl.EAFLScheduler.EAFLScheduler",
+      "path": "lib.eafl.EAFLScheduler.EAFLScheduler",
       "r": 25,
       "schedule": {
         "path": "schedule.RandomSchedule.RandomSchedule",
@@ -39,15 +38,15 @@
       }
     },
     "updater": {
-      "path": "eafl.EAFLUpdater.EAFLUpdater",
+      "path": "lib.eafl.EAFLUpdater.EAFLUpdater",
       "loss": "torch.nn.functional.cross_entropy",
       "update": {
-        "path": "eafl.EAFL.DSA",
+        "path": "lib.eafl.EAFL.DSA",
         "params": {
         }
       },
       "group": {
-        "path": "eafl.EAFL.SAA",
+        "path": "lib.eafl.EAFL.SAA",
         "params": {
         }
       }
@@ -65,7 +64,7 @@
   "queue_manager": {
     "path": "queuemanager.QueueListManager.QueueListManager",
     "receiver": {
-      "path": "eafl.EAFLReceiver.EAFLReceiver",
+      "path": "lib.eafl.EAFLReceiver.EAFLReceiver",
       "params": {
       }
     },
@@ -79,7 +78,7 @@
     "path": "clientmanager.NormalClientManager.NormalClientManager"
   },
   "client": {
-    "path": "eafl.EAFLClient.EAFLClient",
+    "path": "lib.eafl.EAFLClient.EAFLClient",
     "epochs": 1,
     "batch_size": 64,
     "model": {
