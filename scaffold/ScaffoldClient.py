@@ -55,11 +55,8 @@ class ScaffoldClient(NormalClientWithDelta):
             weights[k] = temp[k] - v.data
         return data_sum, weights
 
-    def upload(self, data_sum, weights):
-        update_dict = {"client_id": self.client_id, "weights": weights, "data_sum": data_sum,
-                       "time_stamp": self.time_stamp, "delta_c": to_cpu(self.delta_c)}
-        self.message_queue.put_into_uplink(update_dict)
-        print("Client", self.client_id, "uploaded")
+    def customize_upload(self):
+        self.upload_item("delta_c", to_cpu(self.delta_c))
 
     def init_client(self):
         super().init_client()
