@@ -14,7 +14,7 @@ class ScaffoldClient(NormalClientWithDelta):
         self.global_control = {}
         self.delta_c = {}
 
-    def train_one_epoch(self):
+    def train(self):
         x = copy.deepcopy(self.model)
         data_sum = 0
         for _ in range(self.epoch):
@@ -35,11 +35,11 @@ class ScaffoldClient(NormalClientWithDelta):
                 for k, v in self.model.named_parameters():
                     v.grad += self.global_control[k].data - self.control[k].data
                 # Update the gradient
-                self.opti.step()
+                self.optimizer.step()
                 if self.lr_scheduler:
                     self.lr_scheduler.step()
                 # Zero out the gradient and initialize the gradient.
-                self.opti.zero_grad()
+                self.optimizer.zero_grad()
         # Return the updated model parameters obtained by training on the client's own data.
         weights = self.model.state_dict()
         # update c
@@ -50,7 +50,7 @@ class ScaffoldClient(NormalClientWithDelta):
         for k, v in x.named_parameters():
             local_steps = self.epoch * len(self.train_dl)
             raw = copy.deepcopy(self.control[k])
-            self.control[k] = self.control[k] - self.global_control[k] + (v.data - temp[k]) / (local_steps * self.opti.state_dict()['param_groups'][0]['lr'])
+            self.control[k] = self.control[k] - self.global_control[k] + (v.data - temp[k]) / (local_steps * self.optimizer.state_dict()['param_groups'][0]['lr'])
             self.delta_c[k] = self.control[k] - raw
             weights[k] = temp[k] - v.data
         return data_sum, weights
@@ -58,8 +58,8 @@ class ScaffoldClient(NormalClientWithDelta):
     def customize_upload(self):
         self.upload_item("delta_c", to_cpu(self.delta_c))
 
-    def init_client(self):
-        super().init_client()
+    def init(self):
+        super().init()
         for k, v in self.model.named_parameters():
             self.control[k] = torch.zeros_like(v)
             self.global_control[k] = torch.zeros_like(v)

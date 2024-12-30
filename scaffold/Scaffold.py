@@ -12,8 +12,8 @@ class Scaffold(AbstractUpdate):
         self.dev = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.global_var = GlobalVarGetter.get()
         self.control = {}
-        self.global_weights = self.global_var['server_network'].state_dict()
-        for k in self.global_var['server_network'].state_dict().keys():
+        self.global_weights = self.global_var['global_model'].state_dict()
+        for k in self.global_var['global_model'].state_dict().keys():
             self.control[k] = to_dev(torch.zeros_like(self.global_weights[k].cpu()), self.dev)
         self.global_var['control'] = self.control
 
