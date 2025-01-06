@@ -15,7 +15,7 @@ class EAFLUpdater(SyncUpdater):
         self.group_update = group_update_class(self.config["group"]["params"])
         self.client_list = self.global_var["client_id_list"]
         self.selected_list = []
-        self.r = self.global_var["server_config"]["scheduler"]["r"] if "r" in self.global_var["server_config"]["scheduler"] else 30
+        self.r = self.global_var["server_config"]["scheduler"].get("r", 30)
 
     def create_handler_chain(self):
         self.handler_chain = HandlerChain()

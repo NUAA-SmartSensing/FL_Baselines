@@ -2,7 +2,7 @@ import copy
 
 from update.AbstractUpdate import AbstractUpdate
 from utils.GlobalVarGetter import GlobalVarGetter
-from utils.Tools import to_cpu, to_dev
+from utils.Tools import to_dev
 
 
 class SAA(AbstractUpdate):
