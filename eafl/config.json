@@ -41,12 +41,12 @@
       "path": "lib.eafl.EAFLUpdater.EAFLUpdater",
       "loss": "torch.nn.functional.cross_entropy",
       "update": {
-        "path": "lib.eafl.EAFL.DSA",
+        "path": "lib.eafl.EAFL.SAA",
         "params": {
         }
       },
       "group": {
-        "path": "lib.eafl.EAFL.SAA",
+        "path": "lib.eafl.EAFL.DSA",
         "params": {
         }
       }

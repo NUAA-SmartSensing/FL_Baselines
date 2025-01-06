@@ -2,7 +2,7 @@ import copy
 
 from update.AbstractUpdate import AbstractUpdate
 from utils.GlobalVarGetter import GlobalVarGetter
-from utils.Tools import to_cpu
+from utils.Tools import to_cpu, to_dev
 
 
 class SAA(AbstractUpdate):
@@ -11,7 +11,7 @@ class SAA(AbstractUpdate):
         self.global_var = GlobalVarGetter().get()
 
     def update_server_weights(self, epoch, update_list):
-        server_weights = to_cpu(copy.deepcopy(self.global_var['updater'].model.state_dict()))
+        server_weights = to_dev(copy.deepcopy(self.global_var['updater'].model.state_dict()), 'cuda')
         total_nums = 0
         for update_dict in update_list:
             total_nums += update_dict["data_sum"]

@@ -10,6 +10,7 @@ class EAFLClient(NormalClient):
         self.upload_item("group_id", self.group_id)
 
     def receive_notify(self):
-        if self.message_queue.get_from_downlink(self.client_id, 'changed_group'):
-            self.message_queue.put_into_downlink(self.client_id, 'changed_group', False)
-            self.group_id = self.message_queue.get_from_downlink(self.client_id, 'group_id')
+        self.message_queue.put_into_downlink(self.client_id, 'changed_group', False)
+        self.group_id = self.message_queue.get_from_downlink(self.client_id, 'group_id')
+        if self.group_id is None:
+            self.group_id = 0
