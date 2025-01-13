@@ -1,0 +1,92 @@
+{
+  "wandb": {
+    "enabled": false,
+    "project": "FedProto",
+    "name": "1"
+  },
+  "global": {
+    "dataset_pre_load": true,
+    "use_file_system": false,
+    "multi_gpu": true,
+    "experiment": "FedProto/1",
+    "stale": false,
+    "dataset": {
+      "path": "dataset.FashionMNIST.FashionMNIST",
+      "params": {}
+    },
+    "iid": true,
+    "client_num": 10
+  },
+  "server": {
+    "path": "server.NormalServer.NormalServer",
+    "epochs": 30,
+    "model": {
+      "path": "lib.FedProto.models.models.CNNMnist",
+      "params": {
+        "args": {
+          "num_channels": 1,
+          "num_classes": 10,
+          "out_channels": 20
+        }
+      }
+    },
+    "scheduler": {
+      "path": "scheduler.SyncScheduler.SyncScheduler",
+      "schedule": {
+        "path": "schedule.RandomSchedule.RandomSchedule",
+        "params": {
+          "c_ratio": 0.3
+        }
+      }
+    },
+    "updater": {
+      "path": "lib.FedProto.FedProto.ProtoUpdater",
+      "loss": "torch.nn.functional.cross_entropy",
+      "update": {
+        "path": "lib.FedProto.FedProto.FedProto",
+        "params": {
+        }
+      }
+    }
+  },
+  "queue_manager": {
+    "path": "queuemanager.SingleQueueManager.SingleQueueManager",
+    "receiver": {
+      "path": "receiver.NormalReceiver.NormalReceiver",
+      "params": {
+      }
+    },
+    "checker": {
+      "path": "checker.SyncChecker.SyncChecker",
+      "params": {
+      }
+    }
+  },
+  "client_manager": {
+    "path": "clientmanager.NormalClientManager.NormalClientManager"
+  },
+  "client": {
+    "path": "lib.FedProto.FedProto.ProtoClient",
+    "epochs": 2,
+    "batch_size": 64,
+    "model": {
+      "custom_create_fn": "lib.FedProto.FedProto.create_proto_model",
+      "params": {
+        "dataset": "mnist",
+        "mode": "model_heter",
+        "num_channels": 1,
+        "num_classes": 10,
+        "out_channels": 20
+      }
+    },
+    "loss": "torch.nn.functional.cross_entropy",
+    "mu": 0,
+    "optimizer": {
+      "path": "torch.optim.SGD",
+      "params": {
+        "lr": 0.01,
+        "weight_decay": 0
+      }
+    }
+  }
+}
