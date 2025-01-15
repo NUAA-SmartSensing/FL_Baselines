@@ -12,7 +12,10 @@ git clone https://github.com/NUAA-SmartSensing/FL_Baselines.git src/lib
 ```
 算法列表：
 
-| 算法名称 | 论文名称 | 代码位置 |
-| --- | --- | --- |
-| SCAFFOLD | SCAFFOLD: Stochastic Controlled Averaging for Federated Learning | [scaffold](./scaffold/) |
-| EAFL | Orchestrating Sustainable and Service-Differentiable Satellite Networking: A Federated Cross-Orbit Approach | [eafl](./eafl/) |
+| 算法名称        | 论文名称                                                                                                        | 代码位置                          |
+|-------------|-------------------------------------------------------------------------------------------------------------|-------------------------------|
+| SCAFFOLD    | SCAFFOLD: Stochastic Controlled Averaging for Federated Learning                                            | [scaffold](./scaffold/)       |
+| EAFL        | Orchestrating Sustainable and Service-Differentiable Satellite Networking: A Federated Cross-Orbit Approach | [eafl](./eafl/)               |
+| FedSampling | FedSampling: A Better Sampling Strategy for Federated Learning                                              | [FedSampling](./FedSampling/) |
+| FedProto    | FedProto: Federated Prototype Learning across Heterogeneous Clients                                         | [FedProto](./FedProto/)       |
+
